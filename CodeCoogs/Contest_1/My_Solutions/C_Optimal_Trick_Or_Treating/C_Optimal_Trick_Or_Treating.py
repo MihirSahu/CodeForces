@@ -52,7 +52,6 @@ import sys
 
 def max_candy():
     aliceMenu = []
-    houses = []
     numMenu = int(sys.stdin.readline().rstrip())
 
     for i in range(0, numMenu):
@@ -62,5 +61,30 @@ def max_candy():
     numHouses = int(tempString[0])
     canVisit = int(tempString[2])
 
+    houseCandyList = []
+
     for i in range(0, numHouses):
-        houses.append(sys.stdin.readline().rstrip())
+        numHouseCandyType = int(sys.stdin.readline().rstrip())
+        currentTotalHouseCandy = 0
+
+        for j in range(0, numHouseCandyType):
+            temp = sys.stdin.readline().rstrip()
+            for k in aliceMenu:
+                if temp[:temp.index(' ')] == k[:temp.index(' ')]:
+                    currentTotalHouseCandy = currentTotalHouseCandy + (int(temp[temp.index(' ') + 1:])*int(k[temp.index(' ') + 1:]))
+                    break
+
+        houseCandyList.append(currentTotalHouseCandy)
+
+    print('')
+    print(houseCandyList)
+
+    totalCandy = 0
+    for i in range(0, canVisit):
+        totalCandy = totalCandy + max(houseCandyList)
+        houseCandyList.remove(max(houseCandyList))
+
+    print(totalCandy)
+
+# Testing
+max_candy()
